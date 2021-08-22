@@ -20,10 +20,34 @@ public class EmployeeBussinessImpl implements EmpBusinessInterface{
 	@Autowired
 	EmpDaoInterface empDaoInterface;
 	
-	@Override
+
 	public Employee addEmployee(Employee emp) {
 		
 		return empDaoInterface.save(emp);
+	}
+
+
+	public Iterable<Employee> getAllEmployee() {
+
+		return empDaoInterface.findAll();
+	}
+
+
+	public Optional<Employee> getEmployeelById(String id) {
+		return empDaoInterface.findById(id);
+	}
+
+
+	public long deleteEmployee(String id) {
+		
+		Optional<Employee> employeeDetails =  empDaoInterface.findById(id);
+		long retValue = 0;
+		if(employeeDetails.isPresent())
+		{
+			retValue = employeeDetails.get().getId();
+			empDaoInterface.delete(employeeDetails.get());
+		}
+		return retValue;
 	}
 
 
@@ -61,13 +85,14 @@ public class EmployeeBussinessImpl implements EmpBusinessInterface{
             return new ArrayList<Employee>();
         }
 	}
-	
+
+
 	@Override
-	public Optional<Employee> getEmployeelById(String id) {
-		return empDaoInterface.findById(id);
+	public List<Employee> addEmployee(List<Employee> emp) {
+		
+		return (List<Employee>)empDaoInterface.saveAll(emp);
 	}
-	
-	@Override
+
 	public Employee updateEmployee(String id, Employee emp) {
 		Optional<Employee>  empDataOptional = empDaoInterface.findById(id);
 		if(empDataOptional.isPresent())
