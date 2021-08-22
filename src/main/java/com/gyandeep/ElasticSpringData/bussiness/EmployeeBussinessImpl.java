@@ -2,6 +2,7 @@ package com.gyandeep.ElasticSpringData.bussiness;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -59,6 +60,10 @@ public class EmployeeBussinessImpl implements EmpBusinessInterface{
         } else {
             return new ArrayList<Employee>();
         }
+	}
+	
+	public Optional<Employee> getEmployeelById(String id) {
+		return empDaoInterface.findById(id);
 	}
 
 }

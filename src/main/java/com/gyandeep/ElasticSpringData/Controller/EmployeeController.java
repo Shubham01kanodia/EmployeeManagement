@@ -1,9 +1,11 @@
 package com.gyandeep.ElasticSpringData.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +37,18 @@ public class EmployeeController {
 	{
 		System.out.println("get all Employee ");
 		return empBusinessInterface.getAllEmployee(pageNo, pageSize, sortBy, name, email);
+	}
+	
+	@GetMapping("/employee-details/{id}")
+	public Employee getEmployeeById(@PathVariable("id")String id)
+	{
+		System.out.println("Get employee details id :: "+id);
+		Optional<Employee>  empOptional = empBusinessInterface.getEmployeelById(id);
+		if(empOptional.isPresent())
+		{
+			return empOptional.get();
+		}
+		return null;
 	}
 
 }
