@@ -20,7 +20,7 @@ public class EmployeeBussinessImpl implements EmpBusinessInterface{
 	@Autowired
 	EmpDaoInterface empDaoInterface;
 	
-
+	@Override
 	public Employee addEmployee(Employee emp) {
 		
 		return empDaoInterface.save(emp);
@@ -62,8 +62,45 @@ public class EmployeeBussinessImpl implements EmpBusinessInterface{
         }
 	}
 	
+	@Override
 	public Optional<Employee> getEmployeelById(String id) {
 		return empDaoInterface.findById(id);
+	}
+	
+	@Override
+	public Employee updateEmployee(String id, Employee emp) {
+		Optional<Employee>  empDataOptional = empDaoInterface.findById(id);
+		if(empDataOptional.isPresent())
+		{
+			Employee empData = empDataOptional.get();
+			empData.setAbout(emp.getAbout());
+			empData.setCountry(emp.getCountry());
+			empData.setCoverPicture(emp.getCoverPicture());
+			empData.setCreatedAt(emp.getCreatedAt());
+			empData.setCreditBalance(emp.getCreditBalance());
+			empData.setDob(emp.getDob());
+			empData.setEnablefollowme(emp.isEnablefollowme());
+			empData.setEnabletagging(emp.isEnabletagging());
+			empData.setGender(emp.getGender());
+			empData.setLat(emp.getLat());
+			empData.setLivelat(emp.getLivelat());
+			empData.setLiveLocation(emp.getLiveLocation());
+			empData.setLng(emp.getLng());
+			empData.setLivelng(emp.getLivelng());
+			empData.setLocation(emp.getLocation());
+			empData.setMyCash(emp.getMyCash());
+			empData.setName(emp.getName());
+			empData.setPassword(emp.getPassword());
+			empData.setProfilePicture(emp.getProfilePicture());
+			empData.setSendmenotifications(emp.isSendmenotifications());
+			empData.setSendTextmessages(emp.isSendTextmessages());
+			empData.setToken(null);
+			empData.setUpdatedAt(null);
+			empData.setUserStatus(0);
+			empData.setUserType(0);
+			return empDaoInterface.save(empData);	
+		}
+		return null;
 	}
 
 }

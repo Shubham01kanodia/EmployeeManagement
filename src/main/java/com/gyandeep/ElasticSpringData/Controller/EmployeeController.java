@@ -50,5 +50,13 @@ public class EmployeeController {
 		}
 		return null;
 	}
+	
+	@PostMapping("/employee-details/{id}")
+	public String updateEmployeeDetails(@PathVariable("id")String id, @RequestBody Employee employee)
+	{
+		System.out.println("Update Employee "+id+":: "+employee);
+		empBusinessInterface.updateEmployee(id, employee);
+		return "Updated Employee "+id;
+	}
 
 }
